@@ -4,6 +4,7 @@ import { People } from './components/People';
 import { Planets } from './components/Planets';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+
 const queryClient = new QueryClient()
 
 function App() {
