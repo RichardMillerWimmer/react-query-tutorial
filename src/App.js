@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient()
 
+// test comment and push after github profile changes
+
 function App() {
   const [page, setPage] = useState('planets')
 
