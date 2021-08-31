@@ -13,6 +13,22 @@ export const Planets = () => {
     return (
         <div>
             <h2>Planets</h2>
+            
+            { status === 'loading' && (
+                <div>Loading planets data...</div>
+            )}
+             { status === 'success' && (
+                <div>
+                    {data.results.map(planet => {
+                        <div>
+                            {planet.name}
+                        </div>
+                    })}
+                </div>
+            )}
+            { status === 'error' && (
+                <div>Error fetching planets data</div>
+            )}
         </div>
     )
 }
