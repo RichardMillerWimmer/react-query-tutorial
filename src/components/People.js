@@ -8,7 +8,11 @@ const fetchPeople = async () => {
 }
 
 export const People = () => {
-    const { data, status } = useQuery('people', fetchPeople);
+    const { data, status } = useQuery('people', fetchPeople, { 
+        staleTime: 5000,
+        cacheTime: 300000,
+        onSuccess: () => console.log('onSuccess fired in useQuery config')
+    });
     console.log(data)
 
     return (
