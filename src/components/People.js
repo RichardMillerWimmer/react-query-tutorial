@@ -17,7 +17,7 @@ export const People = () => {
     });
 
     const pageUp = () => {
-        setPage(page + 1)
+        setPage(prevPage => Math.min(prevPage + 1, 9))
     };
     const pageDown = () => {
         setPage(prevPage => Math.max(prevPage - 1, 1))
@@ -34,7 +34,7 @@ export const People = () => {
                 <div>
                     <button onClick={() => pageDown()} disabled={page === 1}>prev</button>
                     <span>{ page }</span>
-                    <button onClick={() => pageUp()}>next</button>
+                    <button onClick={() => pageUp()} disabled={page === 9}>next</button>
                     <div>
                         {data.results.map(person => <Person key={person.name} person={person} />)}
                     </div>

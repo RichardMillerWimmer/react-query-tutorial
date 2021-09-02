@@ -17,7 +17,7 @@ export const Planets = () => {
     });
 
     const pageUp = () => {
-        setPage(page + 1)
+        setPage(prevPage => Math.min(prevPage + 1, 6))
     };
     const pageDown = () => {
         setPage(prevPage => Math.max(prevPage - 1, 1))
@@ -34,7 +34,7 @@ export const Planets = () => {
                 <div>
                     <button onClick={() => pageDown()} disabled={ page === 1 }>prev</button>
                     <span>{ page }</span>
-                    <button onClick={() => pageUp()}>next</button>
+                    <button onClick={() => pageUp()} disabled={ page === 6 }>next</button>
                     <div>
                         {data.results.map(planet => <Planet key={planet.name} planet={planet} />)}
                     </div>
