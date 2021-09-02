@@ -9,35 +9,36 @@ const fetchPeople = async (page) => {
 
 export const People = () => {
     const [page, setPage] = useState(1)
-    const { data, status } = useQuery(['people', page], () => fetchPeople(page), { 
+    const { data, status } = useQuery(['people', page], () => fetchPeople(page), {
         staleTime: 5000,
         cacheTime: 300000,
         // onSuccess: () => console.log('onSuccess People: ', data)
     });
-    
+
     const pageUp = () => {
         setPage(page + 1)
     };
     const pageDown = () => {
-        setPage(page - 1)
+        setPage(prevPage => Math.max(prevPage - 1, 1))
     };
 
     return (
         <div>
             <h2>People</h2>
-            
-            <button onClick={() => pageDown()}>prev</button>
-            <button onClick={() => pageUp()}>next</button>
 
-            { status === 'loading' && (
+            {status === 'loading' && (
                 <div>Loading people data...</div>
             )}
-             { status === 'success' && (
+            {status === 'success' && (
                 <div>
-                    {data.results.map(person => <Person key={person.name} person={person} />)}
+                    <button onClick={() => pageDown()}>prev</button>
+                    <button onClick={() => pageUp()}>next</button>
+                    <div>
+                        {data.results.map(person => <Person key={person.name} person={person} />)}
+                    </div>
                 </div>
             )}
-            { status === 'error' && (
+            {status === 'error' && (
                 <div>Error fetching people data</div>
             )}
         </div>
