@@ -15,11 +15,18 @@ export const Planets = () => {
         // onSuccess: () => console.log('onSuccess Planets: ', data)    
     });
     
-    
+    const pageUp = () => {
+        setPage(page + 1)
+    };
+    const pageDown = () => {
+        setPage(page - 1)
+    };
 
     return (
         <div>
             <h2>Planets</h2>
+            <button onClick={() => pageDown()}>prev</button>
+            <button onClick={() => pageUp()}>next</button>
             
             { status === 'loading' && (
                 <div>Loading planets data...</div>
