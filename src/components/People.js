@@ -31,7 +31,7 @@ export const People = () => {
             )}
             {status === 'success' && (
                 <div>
-                    <button onClick={() => pageDown()}>prev</button>
+                    <button onClick={() => pageDown()} disabled={page === 1}>prev</button>
                     <button onClick={() => pageUp()}>next</button>
                     <div>
                         {data.results.map(person => <Person key={person.name} person={person} />)}
