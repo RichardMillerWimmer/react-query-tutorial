@@ -12,6 +12,7 @@ export const Planets = () => {
     const { data, status } = useQuery(['planets', page], () => fetchPlanets(page), {
         staleTime: 5000,
         cacheTime: 300000,
+        keepPreviousData: true, 
         // onSuccess: () => console.log('onSuccess Planets: ', data)    
     });
 
