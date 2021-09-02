@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Person } from './Person';
 
-const fetchPeople = async () => {
-    const res = await fetch('https://swapi.dev/api/people/');
+const fetchPeople = async (page) => {
+    const res = await fetch(`https://swapi.dev/api/people/?page=${page}`);
     return res.json();
 }
 
 export const People = () => {
-    const { data, status } = useQuery('people', fetchPeople, { 
+    const [page, setPage] = useState(1)
+    const { data, status } = useQuery(['people', page], () => fetchPeople(page), { 
         staleTime: 5000,
         cacheTime: 300000,
         // onSuccess: () => console.log('onSuccess People: ', data)
     });
-    console.log(data)
+    
+    const pageUp = () => {
+        setPage(page + 1)
+    };
+    const pageDown = () => {
+        setPage(page - 1)
+    };
 
     return (
         <div>
             <h2>People</h2>
             
+            <button onClick={() => pageDown()}>prev</button>
+            <button onClick={() => pageUp()}>next</button>
+
             { status === 'loading' && (
                 <div>Loading people data...</div>
             )}
