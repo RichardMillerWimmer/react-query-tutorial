@@ -9,7 +9,7 @@ const fetchPlanets = async (page) => {
 
 export const Planets = () => {
     const [page, setPage] = useState(1);
-    const { data, status } = useQuery(['planets', page], () => fetchPlanets(page), {
+    const { data, isSuccess, isLoading, isError, error } = useQuery(['planets', page], () => fetchPlanets(page), {
         staleTime: 5000,
         cacheTime: 300000,
         keepPreviousData: true, 
@@ -27,10 +27,10 @@ export const Planets = () => {
         <div>
             <h2>Planets</h2>
 
-            {status === 'loading' && (
+            {isLoading && (
                 <div>Loading planets data...</div>
             )}
-            {status === 'success' && (
+            {isSuccess && (
                 <div>
                     <button onClick={() => pageDown()} disabled={ page === 1 }>prev</button>
                     <span>{ page }</span>
@@ -40,8 +40,8 @@ export const Planets = () => {
                     </div>
                 </div>
             )}
-            {status === 'error' && (
-                <div>Error fetching planets data</div>
+            {isError && (
+                <div>Error: {error.message}</div>
             )}
         </div>
     )
